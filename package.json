@@ -1,0 +1,25 @@
+{
+  "name": "ifunnybot",
+  "version": "1.0.0",
+  "description": "iFunnyBot is a Discord bot that takes iFunny links and resolves them to the actual pics/vids/gifs.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ColtonSpitdowski/iFunnyBot.git"
+  },
+  "author": "Dingus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ColtonSpitdowski/iFunnyBot/issues"
+  },
+  "homepage": "https://github.com/ColtonSpitdowski/iFunnyBot#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.11",
+    "discord.js": "^13.8.0",
+    "dotenv": "^16.0.1",
+    "request": "^2.88.2"
+  }
+}
