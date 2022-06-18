@@ -17,6 +17,7 @@ client.login(process.env.BOT_TOKEN)
 client.on('ready', () =>
 {
     console.log("iFunnyBot is ready!")
+    client.user.setActivity(`for memes in ${client.guilds.cache.size} servers`, {type: "WATCHING"});
 })
 
 // message event handler
