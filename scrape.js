@@ -47,9 +47,9 @@ module.exports = function(msg, url)
                     msg.channel.send(gifSrc);
                     break;
 
-                // default case just in case something fucks up
+                // default case just in case something messes up
                 default:
-                    msg.channel.send("I'm sorry, something went wrong because I'm retarded.");
+                    msg.channel.send("I'm sorry, something went wrong.");
             }
         }
         // returns a message if the link returns an error 404
@@ -58,6 +58,6 @@ module.exports = function(msg, url)
 
         // sends a message if anything else goes wrong
         else
-            msg.channel.send("I'm sorry, something went wrong because I'm retarded.")
+            msg.channel.send("I'm sorry, something went wrong.");
     });
 }
