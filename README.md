@@ -1,8 +1,4 @@
-# This is the iFunnyBot. #
-
-## A simple Discord bot that takes iFunny links and posts the image/video/gif in chat. ##
-
----
+# A simple Discord bot that takes iFunny links and posts the image/video/gif in chat. #
 
 iFunnyBot is a simple little project that I made since iFunny links don't embed into Discord chats. The bot takes the iFunny link and parses the source html until it finds the url that points directly to the meme. It then posts the url and Discord embeds the meme using the url.
 
