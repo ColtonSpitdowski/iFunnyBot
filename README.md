@@ -5,8 +5,11 @@ iFunnyBot is a simple little project that I made since iFunny links don't embed 
 ### Usage ###
 Using the iFunnyBot is as simple as posting the link to the meme in the Discord chat. Once you do that, the bot does the rest for you.
 
+![iFunnyBot example smallest](https://user-images.githubusercontent.com/81008604/174526988-9c6a9308-0500-45db-9469-b35becc72f18.gif)
+
+
 ### Invite ###
-You can invite the bot to your server [here](https://dingus.info/)
+You can invite the bot to your server [here](https://dingus.info/).
 
 ### Installation Instructions ###
 This section is strictly if you feel like hosting your own private iFunnyBot. If you do feel like doing so, the steps are relatively easy.
