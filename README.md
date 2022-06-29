@@ -7,7 +7,6 @@ Using the iFunnyBot is as simple as posting the link to the meme in the Discord 
 
 ![iFunnyBot example smallest](https://user-images.githubusercontent.com/81008604/174526988-9c6a9308-0500-45db-9469-b35becc72f18.gif)
 
-docker run -d -v /home/colton/iFunnyBot/.env:/iFunnyBot/.env --restart on-failure --name ifunnybot ifunnybot:testing
 ### Invite ###
 You can invite the bot to your server [here](https://dingus.info/).
 
