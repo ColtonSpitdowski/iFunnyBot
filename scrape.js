@@ -23,40 +23,14 @@ module.exports = function(msg, url)
                 // narrowing down focus to only the body of the html
                 const body = $('body');
 
-                // checks character postion 18 for what type of data the site holds, then passes the character to the right case
-                switch(url.charAt(18))
-                {
-                    case 'p':
-                        embedMeme(msg, html);
-                        break;
-                        
-                    case 'm':
-                        embedMeme(msg, html);
-                        break;
+                let memeType = url.charAt(18);
 
-                    case 'v':
-                        // searches the body for the first element that matches "data-src" attribute, then sends the link that follows the attribute
-                        let vidSrc = body.html().split(" ").find(element => element.startsWith("data-src"));
-                        vidSrc = vidSrc.substring(10, vidSrc.length - 1);
-
-                        // searches the body for the author's name
-                        let namelist = body.html().match(/(user\/)(\w+)/gm);
-                        let author = namelist[0].substring(namelist[0].lastIndexOf("/") + 1);
-
-                        msg.channel.send(`OP: ${author} - ${vidSrc}`);
-                        break;
-
-                    case 'g':
-                        // searches the body for the first element that matches "data-src" attribute, then sends the link that follows the attribute
-                        let gifSrc = body.html().split(" ").find(element => element.startsWith("data-src"));
-                        gifSrc = gifSrc.substring(10, gifSrc.length - 1);
-                        msg.channel.send(gifSrc);
-                        break;
-
-                    // default case just in case something messes up
-                    default:
-                        msg.channel.send("I'm sorry, something went wrong.");
-                }
+                if(memeType == 'p' || memeType == 'm')
+                    embedMeme(msg, $);
+                else if(memeType == 'v' || memeType == 'g')
+                    msg.channel.send(`OP: ${getAuthorName(body)} - ${getSource(body)}`);
+                else
+                    msg.channel.send("I'm sorry, something went wrong.");
             }
             // returns a message if the link returns an error 404
             else if(response.statusCode == 404)
@@ -73,26 +47,20 @@ module.exports = function(msg, url)
     }
 }
 
-function embedMeme(msg, html)
+function embedMeme(msg, $)
 {
-    // loads cheerio object that contains the entire web page's html
-    const $ = cheerio.load(html);
-
     // narrowing down focus to only the body of the html
     const body = $('body');
-
+    
     // searches the body for the img tag and sends the tag's src attribute
     let picTag = body.find('img').get(1);
 
-    // searching for meme author's name using regex
-    let namelist = body.html().match(/(user\/)(\w+)/gm);
-    let author = namelist[0].substring(namelist[0].lastIndexOf("/") + 1);
+    // getting author's name
+    let author = getAuthorName(body);
     
-    // searching for the url to the author's profile picture using regex
-    let authorPicRegex = body.html().match(/((alt=")(\w+)).\s(data-src=")([^"]+)/gm);
-    let authorPic = authorPicRegex[0].match(/(data-src=")([^"]+)/gm)[0];
-    authorPic = authorPic.substring(authorPic.indexOf('\"') + 1);
-
+    //getting the author's profile picture
+    authorPic = getAuthorPic(body);
+    
     // making a new message embed and adding image, author, author's pic, and a timestamp to it
     let embed = new MessageEmbed()
     embed.setImage($(picTag).attr('src'));
@@ -101,4 +69,30 @@ function embedMeme(msg, html)
     
     // sending the embed
     msg.channel.send({embeds: [embed]});
+}
+
+function getSource(body)
+{
+    // searches through the body for source of the video/gif
+    let dataSrc = body.html().split(" ").find(element => element.startsWith("data-src"));
+    return dataSrc.substring(10, dataSrc.length - 1);
+}
+
+function getAuthorName(body)
+{
+    // searching for list of usernames using regex
+    let namelist = body.html().match(/(user\/)(\w+)/gm);
+
+    // getting author's name from the list of usernames
+    let author = namelist[0].substring(namelist[0].lastIndexOf("/") + 1);
+
+    return author;
+}
+
+function getAuthorPic(body)
+{
+    // searching for the url to the author's profile picture using regex
+    let authorPicRegex = body.html().match(/((alt=")(\w+)).\s(data-src=")([^"]+)/gm);
+    let authorPic = authorPicRegex[0].match(/(data-src=")([^"]+)/gm)[0];
+    return authorPic.substring(authorPic.indexOf('\"') + 1);
 }
